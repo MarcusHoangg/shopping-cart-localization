@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "your-dockerhub-username/shopping-cart-localization"
+        IMAGE_NAME = "shopping-cart-localization"
         IMAGE_TAG = "latest"
     }
 
     tools {
-        maven 'Maven'
-        jdk 'JDK17'
+        maven 'Maven3'
+        jdk 'JDK25'
     }
 
     stages {
@@ -20,38 +20,25 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                sh 'mvn package'
+                bat 'mvn package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKER_USERNAME',
-                    passwordVariable: 'DOCKER_PASSWORD'
-                )]) {
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                    sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
-                }
+                bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
             }
         }
     }
