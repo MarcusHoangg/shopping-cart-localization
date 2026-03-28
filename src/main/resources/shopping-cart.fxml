@@ -16,13 +16,13 @@
         <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <Label fx:id="languageLabel" text="%select.language"/>
+    <Label fx:id="languageLabel"/>
     <ComboBox fx:id="languageComboBox"/>
-    <Button fx:id="confirmLanguageButton" text="%confirm.language" onAction="#confirmLanguage"/>
+    <Button fx:id="confirmLanguageButton" onAction="#confirmLanguage"/>
 
-    <Label fx:id="itemCountLabel" text="%enter.item.count"/>
-    <TextField fx:id="itemCountField" promptText="%enter.item.count.prompt"/>
-    <Button fx:id="enterItemsButton" text="%enter.items" onAction="#createItemFields"/>
+    <Label fx:id="itemCountLabel"/>
+    <TextField fx:id="itemCountField"/>
+    <Button fx:id="enterItemsButton" onAction="#createItemFields"/>
 
     <ScrollPane fitToWidth="true" prefHeight="250">
         <content>
@@ -30,6 +30,6 @@
         </content>
     </ScrollPane>
 
-    <Button fx:id="calculateButton" text="%calculate.total" onAction="#calculateTotal"/>
-    <Label fx:id="totalLabel" text="%cart.total"/>
+    <Button fx:id="calculateButton" onAction="#calculateTotal"/>
+    <Label fx:id="totalLabel"/>
 </VBox>
