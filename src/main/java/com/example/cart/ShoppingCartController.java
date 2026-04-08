@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class ShoppingCartController {
 
+    private DatabaseConnection databaseConnection;
     @FXML private ComboBox<String> languageComboBox;
     @FXML private Label languageLabel;
     @FXML private Button confirmLanguageButton;
@@ -26,7 +27,7 @@ public class ShoppingCartController {
     @FXML private Label totalLabel;
 
     private final ShoppingCartCalculator calculator = new ShoppingCartCalculator();
-    private final LocalizationService localizationService = new LocalizationService();
+    private final LocalizationService localizationService = new LocalizationService(databaseConnection);
     private final CartService cartService = new CartService();
 
     private final List<TextField> priceFields = new ArrayList<>();

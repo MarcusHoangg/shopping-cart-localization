@@ -8,6 +8,12 @@ import java.util.Map;
 
 public class LocalizationService {
 
+    private DatabaseConnection databaseConnection;
+
+    public LocalizationService(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
+
     public Map<String, String> getMessages(String language) {
         Map<String, String> messages = new HashMap<>();
 
