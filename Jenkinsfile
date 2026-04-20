@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "marcushoangg/shopping-cart-localization"
         IMAGE_TAG = "latest"
+        SONAR_TOKEN = "sqp_4f11448ec86d6e20aa72a30a5b36f1c553872415"
     }
 
     tools {
@@ -19,21 +20,14 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build + Test + Sonar') {
             steps {
-                bat 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                bat 'mvn sonar:sonar "-Dsonar.projectKey=shopping-cart-localization" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=sqp_4f11448ec86d6e20aa72a30a5b36f1c553872415'
+                bat """
+                mvn clean verify sonar:sonar ^
+                -Dsonar.projectKey=shopping-cart-localization ^
+                -Dsonar.host.url=http://localhost:9000 ^
+                -Dsonar.token=%SONAR_TOKEN%
+                """
             }
         }
 
