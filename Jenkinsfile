@@ -33,7 +33,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                bat 'mvn sonar:sonar "-Dsonar.projectKey=shopping-cart-localization" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=YOUR_TOKEN"'
+                bat 'mvn sonar:sonar "-Dsonar.projectKey=shopping-cart-localization" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=sqp_4f11448ec86d6e20aa72a30a5b36f1c553872415'
             }
         }
 
