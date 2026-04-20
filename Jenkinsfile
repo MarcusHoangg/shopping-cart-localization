@@ -2,16 +2,17 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "shopping-cart-localization"
+        IMAGE_NAME = "marcushoangg/shopping-cart-localization"
         IMAGE_TAG = "latest"
     }
 
     tools {
         maven 'Maven3'
-        jdk 'JDK25'
+        jdk 'JDK17'
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -30,15 +31,27 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                bat 'mvn sonar:sonar'
+            }
+        }
+
         stage('Package') {
             steps {
-                bat 'mvn package'
+                bat 'mvn package -DskipTests'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t %IMAGE_NAME%:%IMAGE_TAG% .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                bat 'docker push %IMAGE_NAME%:%IMAGE_TAG%'
             }
         }
     }
